@@ -14,7 +14,7 @@ This project was developed using Google's Colab and contains all the files neces
 ## Repository content
 
 - `/preprocessing`: contains the notebooks used to combine the BSM and GPS information of each message received by the vehicles, in csv files; 
-- `/models`: contains the notebooks used to configure and test the detection models conceived in this work;
+- `/models`: contains the notebooks used to configure and test the detection models conceived in this work.
 
 ## [VeReMi dataset](https://veremi-dataset.github.io/)
 
