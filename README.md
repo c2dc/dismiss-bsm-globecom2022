@@ -1,25 +1,23 @@
-# DISMISS-BSM: uma arquitetura para detecção de falsifição de Basic Safety Messages
+# DISMISS-BSM: detection of position spoofing in Basic Safety Messages
 
-Basic Safety Messages (BSMs) são cruciais para sistemas de transportes inteligentes e cooperativos (C-ITS) e habilitam o sincronismo entre os veículos no sistema.   No entanto, a identificação adaptativa da falsificação do conteúdo das BSMs com baixo tempo de aprendizado e inferência é um desafio.  Neste trabalho apresenta-se (i) DISMISS-BSM, uma arquitetura para detecção de falsificação de BSM, e (ii) a especificação dos atributos preditores de potência do sinal recebido, ruptura do padrão de deslocamento e janela deslizante com 3 mensagens.  Foram testados os modelos SVM, MLP e LSTM e k-NN, este último obtendo a melhor adequação com treinamento médio de 70 e 30 segundos para os preditores potência do sinal e conformidade de deslocamento (feature 1 e 2), respectivamente.
+Basic Safety Messages (BSMs) are crucial for Cooperative Intelligent Transport Systems (C-ITS) and enable the coordination between vehicles.  Further, malicious behavior that alters the content of BSMs can incur disastrous effects.  This paper presents DISMISS-BSM, an algorithm for detecting BSM forgery, implementing a novel misbehavior detection approach.  The messages received by the hosts are buffered and grouped to be passed to detection models, enhancing their proficiency when compared to previous approaches.  As a result of our feature engineering, we derive predictors considering the received signal strength and a movement pattern disruption indicator.   Moreover, we use different sliding window lengths (2, 3, 8, 13, 18, and 23), allowing a better prediction of the dynamic attacker behavior.  Our results outperform the state-of-the-art and indicate that decision trees were the better conformant among K-NN, RF, MLP, and LSTM, performing the average f1-score of 0.897, average of training time at 47.62 sec and average of testing time at 5.43 sec.
 
-Este repositório contém os notebooks que foram utilizados para o pré-processamento do dataset e para construção dos modelos de detecção, além de um link para um repositório externo que contém os arquivos CSV que constituem o dataset VeReMi.
+This repository contains the notebooks that were used for pre-processing the dataset and for building the detection models, as well as a link to an external repository that contains the CSV files that make up the VeReMi dataset.
 
-Este projeto foi desenvolvido utilizando-se o Colab, do Google, e contém todos os arquivos necessários para sua reprodução.
+This project was developed using Google's Colab and contains all the files necessary for its reproduction.
 
 <!--ts-->
-   * [Conteúdo do repositório](#conteúdo-do-repositório)
-   * [dataset VeReMi](#dataset-veremi)
+   * [Repository content](#repository-content)
+   * [VeReMi dataset](#veremi-dataset)
 <!--te-->
 
-## Conteúdo do repositório
+## Repository content
 
-- `/preprocessing`: contém os notebooks utilizados para unir as informações das BSM e do GPS de cada mensagem recebida pelos veículos, em arquivos csv; 
-- `/models`: contém os notebooks utilizados para configuração e teste dos modelos de detecção concebidos neste trabalho;
-  - Os códigos dos pré-processamentos do dataset, conforme as features 1 e 2, estão incluídos nos notebooks `mlpfeat1` e `mlpfeat2`;
-  - Os arquivos csv pré-processados das features 1 e 2, estão disponíveis em repositório externo, nos links [feat1](https://mega.nz/folder/1Io20AiA#JyVkFM97zrJVOfMyqsPSrw) e [feat2](https://mega.nz/folder/8YIXQY7b#ivBcMXLcT5lpo_yic-TBaw).
+- `/preprocessing`: contains the notebooks used to combine the BSM and GPS information of each message received by the vehicles, in csv files; 
+- `/models`: contains the notebooks used to configure and test the detection models conceived in this work;
 
-## Dataset [VeReMi](https://veremi-dataset.github.io/)
+## [VeReMi dataset](https://veremi-dataset.github.io/)
 
-O conjunto de dados [VeReMi](https://veremi-dataset.github.io/) é composto por 225 simulações, cada uma contendo um arquivo de rotulação *ground truth* e um conjunto de registros das mensagens recebidas por cada veículo que recebeu mensagens. As simulações possuem variações de três níveis de densidade veicular, três níveis de densidade de atacantes e cinco diferentes tipos de atacantes, tendo cada combinação de parâmetros sido replicada cinco vezes, totalizando 225 rodadas de simulações. Os registros dos veículos possuem dois tipos de mensagens, as mensagens de tipo 2, que são dados de telemetria do veículo (GPS), e as mensagens do tipo 3, contendo os dados das Basic Safety Messages (BSM) recebidas dos demais veículos por DSRC.
+The [VeReMi dataset](https://veremi-dataset.github.io/) replicate several traffic scenarios in city of Luxembourg, utilizing the VEINS simulator,  encompassing 225 simulations, each containing a labeling file (ground truth) and a set of records of messages received by each vehicle that received messages.  The simulations have variations of three levels of vehicular density, three levels of attacker density, and five different types of attackers, and each combination of parameters was replicated five times, totaling 225 simulation rounds.  In addition, vehicle records have two types of messages, type 2 messages, vehicle telemetry data, and type 3 messages, containing Basic Safety Messages (BSM) data received from other vehicles by DSRC.
 
-De modo a facilitar o manejo dos arquivos e acelerar a execução dos experimentos, transpusemos os relatórios do VeReMi para arquivos .csv, unindo as mensagens do tipo 2 (GPS) e 3 (BSM). No entanto, devido ao tamanho dos arquivos, os csv resultantes estão armazenados em um [repositório externo](https://mega.nz/folder/kZxyRaja#A4oPyqyR4-Sl4hd5jf_MzQ).
+In order to facilitate the handling of the files and speed up the execution of the experiments, we transposed the VeReMi reports to .csv files, merging the type 2 (GPS) and 3 (BSM) messages. However, due to the size of the files, the resulting csv is stored in an [external repository](https://mega.nz/folder/8IQgiJoT#umwD_LNC8okGhY--GMQK_w).
